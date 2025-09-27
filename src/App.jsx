@@ -1,0 +1,46 @@
+import React from 'react'
+import Left from './home/left/left'
+import Right from './home/right/right'
+import Logout from './home/left1/Logout'
+import Signup from './components/Signup'
+import Login from "./components/Login";
+import { Route, Routes } from 'react-router-dom'
+import { useAuth } from "./context/AuthProvider";
+import toast, { Toaster } from "react-hot-toast";
+import { Navigate } from 'react-router-dom';
+
+
+
+function App() {
+  const { authUser, setAuthUser } = useAuth()
+  console.log(authUser);
+  return (
+    <>
+      <Routes>
+        <Route path="/" element={
+          authUser ? (
+            <div className="flex h-screen">
+              <Logout></Logout>
+               <Left></Left>
+               <Right></Right>
+
+               
+                
+
+
+
+
+             </div>
+          ) : (
+            <Navigate to={"/login"} />
+          )
+        }
+        />
+        <Route path="/login" element={authUser ? <Navigate to={"/"} /> : <Login />} />
+        <Route path="/signup" element={authUser ? <Navigate to={"/"} /> : <Signup />} />
+      </Routes>
+      <Toaster />
+    </>
+  )
+}
+export default App
