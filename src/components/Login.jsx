@@ -15,7 +15,7 @@ const {authUser,setAuthUser}=useAuth();
             password: data.password
         };
 
-        axios.post('/api/user/login', userInfo)
+        axios.post(`${import.meta.env.VITE_BASE_URL}/api/user/login`, userInfo)
             .then((response) => {
                // console.log(response.data);
                 if (response.data) {

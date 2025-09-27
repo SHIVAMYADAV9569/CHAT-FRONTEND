@@ -26,7 +26,7 @@ const {authUser,setAuthUser}=useAuth();
         };
 
         await axios
-            .post('/api/user/signup', userInfo)
+            .post(`${import.meta.env.VITE_BASE_URL}/api/user/signup`, userInfo)
             .then((response) => {
                // console.log(response.data);
                 if (response.data) {
