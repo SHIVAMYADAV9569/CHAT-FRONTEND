@@ -26,7 +26,7 @@ export const SocketProvider = ({ children }) => {
     }
 
     // naya socket banाओ
-    const newSocket = io("http://localhost:5002", {
+    const newSocket = io(`${import.meta.env.VITE_BASE_URL}`, {
       query: { userId: authUser.user._id },
     });
 
