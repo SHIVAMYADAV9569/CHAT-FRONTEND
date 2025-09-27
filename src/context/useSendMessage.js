@@ -13,7 +13,7 @@ function useSendMessage() {
     if (selectedConversation && selectedConversation._id) {
       try {
         const response = await axios.post(
-          `/api/message/send/${selectedConversation._id}`,
+          `${import.meta.env.VITE_BASE_URL}/api/message/send/${selectedConversation._id}`,
           { message }
         );
 

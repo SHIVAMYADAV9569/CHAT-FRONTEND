@@ -12,7 +12,7 @@ function userGetAllUsers() {
             setLoading(true)
             try {
                 const token = Cookies.get("jwt");
-                const respose = await axios.get("/api/user/getUserProfile", {
+                const respose = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/user/getUserProfile`, {
                     Credentials: "include",
                     headers: {
                         Authorization: `Bearer ${token}`,

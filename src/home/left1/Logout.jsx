@@ -10,7 +10,7 @@ export default function Logout() {
   const handleLogout = async () => {
     setLoading(true);
     try {
-      const res = await axios.post('/api/user/logout');
+      const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/user/logout`);
       localStorage.removeItem('messenger');
       Cookies.remove('jwt');
       setLoading(false);

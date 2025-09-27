@@ -14,7 +14,7 @@ function useGetMessage() {
         try {
           console.log(selectedConversation?._id);
           const response = await axios.get(
-            `/api/message/get/${selectedConversation?._id}`
+            `${import.meta.env.VITE_BASE_URL}/api/message/get/${selectedConversation?._id}`
           );
           setMessages(response.data);
           setLoading(false);
