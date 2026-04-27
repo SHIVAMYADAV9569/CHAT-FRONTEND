@@ -11,7 +11,7 @@ function Users() {
   }
 
   if (allUsers.filiteredUsers.length <= 0) {
-    return <div>No users found.</div>;
+    return <div>No other users found.</div>;
   }
 
   return (

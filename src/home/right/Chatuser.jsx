@@ -5,8 +5,25 @@ function Chatuser() {
  const {selectedConversation} = useConversation()
   console.log(selectedConversation);
   const {onlineUsers} =useSocketContext();
- const getOnlineUserStatus = (userId) =>{
-  return onlineUsers.includes(userId)?"online":"Offline"
+ const getOnlineUserStatus = (user) =>{
+  if (onlineUsers.includes(user._id)) {
+    return "online";
+  } else {
+    if (user.lastSeen) {
+      const lastSeenDate = new Date(user.lastSeen);
+      const now = new Date();
+      const diffMs = now - lastSeenDate;
+      const diffMins = Math.floor(diffMs / 60000);
+      const diffHours = Math.floor(diffMins / 60);
+      const diffDays = Math.floor(diffHours / 24);
+
+      if (diffMins < 1) return "last seen just now";
+      if (diffMins < 60) return `last seen ${diffMins} min ago`;
+      if (diffHours < 24) return `last seen ${diffHours} hour ago`;
+      return `last seen ${diffDays} day ago`;
+    }
+    return "Offline";
+  }
  }
 
   return (
@@ -23,7 +40,7 @@ function Chatuser() {
 
         <div>
           <h1 className="text-xl">{selectedConversation?.name}</h1>
-          <span className="text-sm text-gray-500">{getOnlineUserStatus(selectedConversation._id)}</span>
+          <span className="text-sm text-gray-500">{getOnlineUserStatus(selectedConversation)}</span>
         </div>
         </div>
     </>

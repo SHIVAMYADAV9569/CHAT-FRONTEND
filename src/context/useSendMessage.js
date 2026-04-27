@@ -17,7 +17,10 @@ function useSendMessage() {
           { message }
         );
 
-        setMessages([...messages, response.data]);
+        setMessages({
+          ...messages,
+          messages: [...(messages.messages || []), response.data.newMessage],
+        });
       } catch (error) {
         console.log("Error in sendMessage:", error);
       } finally {
