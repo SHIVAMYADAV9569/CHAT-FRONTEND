@@ -1,15 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from './AuthProvider.jsx';
+import useUsersStore from '../statemanage/useUsersStore.js';
 
 function userGetAllUsers() {
-  const [allUsers, setAllUsers] = useState({ filiteredUsers: [] });
-  const [loading, setLoading] = useState(false);
   const { authUser } = useAuth();
+  const allUsers = useUsersStore((state) => state.allUsers);
+  const loading = useUsersStore((state) => state.loadingUsers);
+  const setAllUsers = useUsersStore((state) => state.setAllUsers);
+  const setLoadingUsers = useUsersStore((state) => state.setLoadingUsers);
 
   useEffect(() => {
     const getUsers = async () => {
-      setLoading(true);
+      setLoadingUsers(true);
       try {
         const headers = authUser?.token
           ? { Authorization: `Bearer ${authUser.token}` }
@@ -19,15 +22,18 @@ function userGetAllUsers() {
           `${import.meta.env.VITE_BASE_URL}/api/user/getUserProfile`,
           { headers }
         );
-        setAllUsers(response.data);
+        setAllUsers(response.data.filiteredUsers || []);
       } catch (error) {
         console.log('Error in userGetAllUsers', error);
       } finally {
-        setLoading(false);
+        setLoadingUsers(false);
       }
     };
-    getUsers();
-  }, [authUser]);
+
+    if (authUser) {
+      getUsers();
+    }
+  }, [authUser, setAllUsers, setLoadingUsers]);
 
   return [allUsers, loading];
 }

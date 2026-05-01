@@ -6,9 +6,9 @@ import toast from "react-hot-toast";
 
 function Search() {
   const [search, setSearch] = useState("");
-  const allUsers = userGetAllUsers(); // ✅ check karo hook kya return karta hai
+  const [allUsers] = userGetAllUsers();
   const { setSelectedConversation } = useConversation();
-  console.log("all users" ,allUsers);
+  console.log("all users", allUsers);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -18,7 +18,7 @@ function Search() {
       return;
     }
 
-    const conversation = allUsers[0].filiteredUsers.find((user) =>
+    const conversation = (allUsers || []).find((user) =>
       user.name?.toLowerCase().includes(search.toLowerCase())
     );
 

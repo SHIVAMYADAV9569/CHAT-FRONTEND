@@ -9,6 +9,7 @@ function useSendMessage() {
   const sendMessages = async (message) => {
     if (!message.trim()) return;
 
+    console.log("Sending message:", message, "to user:", selectedConversation._id);
     setLoading(true);
     if (selectedConversation && selectedConversation._id) {
       try {
@@ -17,9 +18,11 @@ function useSendMessage() {
           { message }
         );
 
+        console.log("Message sent successfully:", response.data.newMessage);
+
         setMessages({
-          ...messages,
           messages: [...(messages.messages || []), response.data.newMessage],
+          selectedConversation: selectedConversation,
         });
       } catch (error) {
         console.log("Error in sendMessage:", error);
@@ -27,6 +30,7 @@ function useSendMessage() {
         setLoading(false);
       }
     } else {
+      console.log("No conversation selected");
       setLoading(false);
     }
   };

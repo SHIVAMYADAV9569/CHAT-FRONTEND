@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import useConversation from "../statemanage/useConversation.js";
 import axios from "axios";
-import { useSocketContext } from "./SocketContext.jsx";
+import useUsersStore from "../statemanage/useUsersStore.js";
 
 function useGetMessage() {
   const [loading, setLoading] = useState(false);
   const { messages, setMessages, selectedConversation } = useConversation();
-  const { socket } = useSocketContext();
+  const setUnreadCount = useUsersStore((state) => state.setUnreadCount);
 
   useEffect(() => {
     const getMessages = async () => {
@@ -17,7 +17,12 @@ function useGetMessage() {
           const response = await axios.get(
             `${import.meta.env.VITE_BASE_URL}/api/message/get/${selectedConversation?._id}`
           );
-          setMessages(response.data);
+          setMessages({
+            ...response.data,
+            selectedConversation: selectedConversation
+          });
+          // Mark unread as 0 for this user
+          setUnreadCount(selectedConversation._id, 0);
           setLoading(false);
         } catch (error) {
           console.log(" Error in useGetMessage:", error);
@@ -26,24 +31,7 @@ function useGetMessage() {
       }
     };
     getMessages();
-  }, [selectedConversation, setMessages]);
-
-  useEffect(() => {
-    if (socket) {
-      socket.on("newMessage", (newMessage) => {
-        if (selectedConversation && (newMessage.senderId === selectedConversation._id || newMessage.receiverId === selectedConversation._id)) {
-          setMessages((prevMessages) => ({
-            ...prevMessages,
-            messages: [...(prevMessages.messages || []), newMessage],
-          }));
-        }
-      });
-
-      return () => {
-        socket.off("newMessage");
-      };
-    }
-  }, [socket, selectedConversation, setMessages]);
+  }, [selectedConversation, setMessages, setUnreadCount]);
 
   return {
     messages,

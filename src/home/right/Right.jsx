@@ -8,10 +8,6 @@ import { useAuth } from "../../context/AuthProvider.jsx";
 function Right() {
   const { selectedConversation, setSelectedConversation } = useConversation();
 
-  useEffect(() => {
-    return () => setSelectedConversation(null);
-  }, [setSelectedConversation]);
-
   return (
     <div className="w-full bg-slate-800 text-gray-300">
       <div>
