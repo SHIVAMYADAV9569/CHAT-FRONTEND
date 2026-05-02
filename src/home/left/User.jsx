@@ -19,7 +19,7 @@ function User({ user }) {
       }`}
       onClick={() => setSelectedConversation(user)}
     >
-      <div className="flex space-x-3 px-5 py-6 cursor-pointer items-center">
+      <div className="flex space-x-3 px-3 md:px-5 py-6 cursor-pointer items-center">
         {/* Avatar */}
         <div className="relative">
           <div className="avatar">

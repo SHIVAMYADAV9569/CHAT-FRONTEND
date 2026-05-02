@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Left from './home/left/Left'
 import Right from './home/right/Right'
 import Logout from './home/left1/Logout'
@@ -12,6 +12,7 @@ import { Navigate } from 'react-router-dom';
 
 function App() {
   const { authUser, setAuthUser } = useAuth()
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   console.log(authUser);
   return (
     <>
@@ -19,9 +20,19 @@ function App() {
         <Route path="/" element={
           authUser ? (
             <div className="flex h-screen">
-              <Logout></Logout>
-               <Left></Left>
-               <Right></Right>
+              <div className="hidden md:flex">
+                <Logout />
+                <Left />
+              </div>
+              <Right isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
+              {isSidebarOpen && (
+                <div className="fixed inset-0 z-50 md:hidden">
+                  <div className="absolute inset-0 bg-black bg-opacity-50" onClick={() => setIsSidebarOpen(false)}></div>
+                  <div className="relative w-80 bg-black text-gray-300 h-full">
+                    <Left />
+                  </div>
+                </div>
+              )}
             </div>
           ) : (
             <Navigate to={"/login"} />

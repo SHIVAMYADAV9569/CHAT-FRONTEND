@@ -18,7 +18,7 @@ function Type() {
         <>
             <form onSubmit={handleSubmit}>
                 <div className="flex space-x-2 h-[8vh] text-center bg-gray-800">
-                    <div className="w-[70%] mx-4">
+                <div className="flex-1 mx-4">
                         <input
                             type="text"
                             value={message}

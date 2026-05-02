@@ -5,8 +5,9 @@ import useCallManager from "../../context/useCallManager.jsx";
 import { useAuth } from "../../context/AuthProvider.jsx";
 import StatusViewer from "../../components/StatusViewer.jsx";
 import { IoCall, IoVideocam, IoHeart, IoEye } from "react-icons/io5";
+import { HiMenu } from 'react-icons/hi';
 
-function Chatuser() {
+function Chatuser({ isSidebarOpen, setIsSidebarOpen }) {
   const { selectedConversation, setSelectedConversation } = useConversation();
   const { onlineUsers, userUpdates } = useSocketContext();
   const { authUser } = useAuth();
@@ -78,7 +79,10 @@ function Chatuser() {
   };
 
   return (
-    <div className="flex flex-col gap-3 p-4 bg-gray-900 border-b border-gray-700">
+    <div className="flex flex-col gap-3 p-2 md:p-4 bg-gray-900 border-b border-gray-700">
+      <button className="md:hidden text-white p-2 self-start" onClick={() => setIsSidebarOpen(true)}>
+        <HiMenu className="text-2xl" />
+      </button>
       <div className="flex items-center gap-4">
         <div className="relative cursor-pointer" onClick={() => selectedConversation?.status?.postedAt && setShowStatusViewer(true)}>
           <div className="avatar online hover:ring-2 hover:ring-blue-500 transition-all duration-200">

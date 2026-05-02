@@ -80,7 +80,7 @@ export default function StatusUploader() {
   };
 
   return (
-    <div className="px-6 py-4 border-t border-gray-700">
+    <div className="px-4 md:px-6 py-4 border-t border-gray-700">
       <h2 className="text-lg font-semibold mb-2">Profile & Status</h2>
       <div className="space-y-3 text-sm text-gray-300">
         <label className="block">

@@ -16,7 +16,7 @@ function Message({ message }) {
    
   return (
     <>
-      <div className="p-4">
+      <div className="p-2 md:p-4">
         <div className= {`chat ${chatName}`}>
           <div className={`chat-bubble text-white ${chatColor}`}> {message.message}</div>
           <div>{formattedTime}</div>

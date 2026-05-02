@@ -32,7 +32,7 @@ function Search() {
 
   return (
     <div className="h-[10vh]">
-      <div className="px-6 py-4">
+      <div className="px-4 md:px-6 py-4">
         <form onSubmit={handleSubmit}>
           <div className="flex space-x-3">
             <label className="border border-gray-700 bg-slate-900 rounded-lg flex items-center gap-2 w-[80%] p-3">
