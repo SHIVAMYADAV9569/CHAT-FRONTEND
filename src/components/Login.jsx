@@ -40,7 +40,7 @@ const {authUser,setAuthUser}=useAuth();
             <div>
                 <form
                     onSubmit={handleSubmit(onSubmit)}
-                    className="border border-white px-6 py-4 rounded-md space-y-3 w-96"
+                    className="border border-white px-6 py-4 rounded-md space-y-3 w-full max-w-md mx-4"
                 >
                     <h1 className="text-2xl text-blue-600 font-bold text-center">Messenger</h1>
 

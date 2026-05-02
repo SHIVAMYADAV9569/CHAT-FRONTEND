@@ -10,21 +10,29 @@ function Right({ isSidebarOpen, setIsSidebarOpen }) {
   const { selectedConversation, setSelectedConversation } = useConversation();
 
   return (
-    <div className="w-full bg-slate-800 text-gray-300">
-      <div>
+    <div className="w-full flex flex-col bg-slate-800 text-gray-300 min-h-screen">
+      <div className="border-b border-gray-700">
+        <div className="flex items-center justify-between p-4 md:p-5">
+          <div>
+            <h2 className="text-lg md:text-xl font-bold">Messenger</h2>
+            <p className="text-sm text-gray-400 md:text-base">Chat with your friends</p>
+          </div>
+          <button className="md:hidden text-white p-2" onClick={() => setIsSidebarOpen(true)}>
+            <HiMenu className="text-2xl" />
+          </button>
+        </div>
+      </div>
+      <div className="flex-1 overflow-hidden">
         {!selectedConversation ? (
-          <Nochat isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
+          <Nochat setIsSidebarOpen={setIsSidebarOpen} />
         ) : (
-          <>
+          <div className="flex h-full flex-col">
             <Chatuser isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
-            <div
-              className="flex-1 overflow-y-auto"
-              style={{ maxHeight: "calc(92vh - 8vh)" }}
-            >
+            <div className="flex-1 overflow-y-auto px-2 md:px-4" style={{ maxHeight: 'calc(100vh - 20vh)' }}>
               <Messages />
             </div>
             <Type />
-          </>
+          </div>
         )}
       </div>
     </div>
@@ -32,16 +40,15 @@ function Right({ isSidebarOpen, setIsSidebarOpen }) {
 }
 export default Right;
 
-const Nochat = ({ isSidebarOpen, setIsSidebarOpen }) => {
+const Nochat = ({ setIsSidebarOpen }) => {
   const { authUser } = useAuth();
   return (
-    <div className="flex h-screen items-center justify-center relative">
-      <button className="absolute top-4 left-4 md:hidden text-white p-2" onClick={() => setIsSidebarOpen(true)}>
+    <div className="flex h-[calc(100vh-80px)] flex-col items-center justify-center px-6 text-center gap-4">
+      <button className="md:hidden text-white p-2 bg-slate-900 rounded-lg" onClick={() => setIsSidebarOpen(true)}>
         <HiMenu className="text-2xl" />
       </button>
-      <h1 className="font-semibold text-xl">welcome <span>{authUser.user.name}</span>
-       <br /> Select a chat to start messaging.
-      </h1>
+      <h1 className="font-semibold text-xl md:text-2xl">Welcome <span className="text-blue-400">{authUser.user.name}</span></h1>
+      <p className="text-gray-400 max-w-md">Select a chat to start messaging. Use the menu icon to open profile and status controls on mobile.</p>
     </div>
   );
 };

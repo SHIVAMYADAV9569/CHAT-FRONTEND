@@ -19,16 +19,20 @@ function App() {
       <Routes>
         <Route path="/" element={
           authUser ? (
-            <div className="flex h-screen">
-              <div className="hidden md:flex">
+            <div className="flex h-screen flex-col md:flex-row bg-slate-950">
+              <div className="hidden md:flex md:w-[30%] lg:w-[26%] xl:w-[22%] flex-col">
                 <Logout />
                 <Left />
               </div>
               <Right isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
               {isSidebarOpen && (
                 <div className="fixed inset-0 z-50 md:hidden">
-                  <div className="absolute inset-0 bg-black bg-opacity-50" onClick={() => setIsSidebarOpen(false)}></div>
-                  <div className="relative w-80 bg-black text-gray-300 h-full">
+                  <div className="absolute inset-0 bg-black bg-opacity-70" onClick={() => setIsSidebarOpen(false)}></div>
+                  <div className="relative h-full w-11/12 max-w-sm bg-black text-gray-300 shadow-xl overflow-y-auto">
+                    <div className="flex items-center justify-between px-4 py-3 border-b border-gray-700">
+                      <h2 className="text-lg font-semibold">Profile & Status</h2>
+                      <button className="text-white text-2xl" onClick={() => setIsSidebarOpen(false)}>×</button>
+                    </div>
                     <Left />
                   </div>
                 </div>

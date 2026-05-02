@@ -7,7 +7,7 @@ import StatusViewer from "../../components/StatusViewer.jsx";
 import { IoCall, IoVideocam, IoHeart, IoEye } from "react-icons/io5";
 import { HiMenu } from 'react-icons/hi';
 
-function Chatuser({ isSidebarOpen, setIsSidebarOpen }) {
+function Chatuser({ setIsSidebarOpen }) {
   const { selectedConversation, setSelectedConversation } = useConversation();
   const { onlineUsers, userUpdates } = useSocketContext();
   const { authUser } = useAuth();
@@ -80,10 +80,10 @@ function Chatuser({ isSidebarOpen, setIsSidebarOpen }) {
 
   return (
     <div className="flex flex-col gap-3 p-2 md:p-4 bg-gray-900 border-b border-gray-700">
-      <button className="md:hidden text-white p-2 self-start" onClick={() => setIsSidebarOpen(true)}>
+      <button className="md:hidden text-white p-2 self-start bg-slate-800 rounded-lg" onClick={() => setIsSidebarOpen(true)}>
         <HiMenu className="text-2xl" />
       </button>
-      <div className="flex items-center gap-4">
+      <div className="flex flex-col lg:flex-row lg:items-center gap-4">
         <div className="relative cursor-pointer" onClick={() => selectedConversation?.status?.postedAt && setShowStatusViewer(true)}>
           <div className="avatar online hover:ring-2 hover:ring-blue-500 transition-all duration-200">
             <div className="w-16 rounded-full overflow-hidden border border-gray-600">
@@ -118,7 +118,7 @@ function Chatuser({ isSidebarOpen, setIsSidebarOpen }) {
           )}
         </div>
 
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           <button
             className="btn btn-sm btn-outline btn-success"
             onClick={() => handleCall("voice")}

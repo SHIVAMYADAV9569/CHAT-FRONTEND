@@ -121,7 +121,7 @@ export default function StatusUploader() {
           />
         </label>
         <button
-          className="btn btn-sm btn-secondary"
+          className="btn btn-sm btn-secondary w-full md:w-auto"
           onClick={uploadStatus}
           disabled={loading}
         >
